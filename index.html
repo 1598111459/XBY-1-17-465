@@ -399,8 +399,8 @@
         <div class="container hero-content">
             <h2>Invierte en el Corazón de España</h2>
             <p>Accede a las cotizaciones en tiempo real de la Bolsa de Madrid, IBEX 35 y las principales empresas españolas. Toma decisiones informadas con nuestros análisis expertos.</p>
-            <!-- 修改按钮链接为指定WhatsApp号码+预设咨询语 -->
-            <a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank" class="btn">
+            <!-- 修改按钮链接为指定WhatsApp号码+预设咨询语，添加点击事件跟踪Contact -->
+            <a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank" class="btn whatsapp-contact-btn">
                 <i class="fab fa-whatsapp"></i> Contáctanos por WhatsApp
             </a>
         </div>
@@ -534,8 +534,8 @@
                 <div class="container">
                     <h3>¿Quieres ser nuestro socio comercial?</h3>
                     <p>Si estás interesado en colaborar con nosotros y formar parte de nuestra red de socios en el mercado bursátil español, no dudes en contactarnos. Estamos abiertos a nuevas oportunidades de negocio y asociaciones mutuamente beneficiosas.</p>
-                    <!-- 修改按钮链接为指定WhatsApp号码+预设咨询语 -->
-                    <a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank" class="btn">
+                    <!-- 修改按钮链接为指定WhatsApp号码+预设咨询语，添加点击事件跟踪Contact -->
+                    <a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank" class="btn whatsapp-contact-btn">
                         <i class="fab fa-whatsapp"></i> Contáctanos por WhatsApp
                     </a>
                 </div>
@@ -581,8 +581,8 @@
                         <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
                         <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
                         <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                        <!-- 修改页脚WhatsApp链接为指定号码+预设咨询语 -->
-                        <li><a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <!-- 修改页脚WhatsApp链接为指定号码+预设咨询语，添加点击事件跟踪Contact -->
+                        <li><a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank" class="whatsapp-contact-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
                     </ul>
                 </div>
             </div>
@@ -629,6 +629,15 @@
                 }
             });
         }, 5000);
+
+        // 为所有WhatsApp联系按钮添加Contact事件跟踪
+        document.querySelectorAll('.whatsapp-contact-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 触发Facebook Pixel的Contact事件
+                fbq('track', 'Contact');
+                console.log('Contact event tracked by Facebook Pixel'); // 调试用，可删除
+            });
+        });
     </script>
 </body>
 </html>
