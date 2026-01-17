@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Bolsa de Madrid - Inversiones en España </title>
+    <!-- 引入字体和图标 -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 西班牙风格配色 */
+            --spanish-red: #C60C30;    /* 西班牙国旗红 */
+            --spanish-gold: #FFC400;   /* 西班牙国旗金 */
+            --mediterranean-blue: #00529B; /* 地中海蓝 */
+            --terracotta: #E2725B;     /* 陶土色 */
+            --olive-green: #6B8E23;    /* 橄榄绿 */
+            --whatsapp-green: #25D366; /* WhatsApp绿色 */
+            --cream: #F5F5DC;          /* 奶油色 */
+            --dark-gray: #333333;      /* 深灰 */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-gray);
+            background-color: #f9f7f4;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部导航 */
+        header {
+            background: linear-gradient(135deg, var(--spanish-red), var(--terracotta));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--spanish-gold);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--spanish-gold);
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            background-blend-mode: overlay;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(198,12,48,0.7), rgba(0,82,155,0.5));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--spanish-gold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--whatsapp-green); /* 修改为WhatsApp绿色 */
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            border-color: var(--whatsapp-green);
+            color: var(--whatsapp-green);
+        }
+
+        /* 主要内容区 */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--spanish-red);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--spanish-gold);
+            margin: 10px auto;
+        }
+
+        /* 指数卡片 */
+        .indices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .index-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--mediterranean-blue);
+            transition: transform 0.3s;
+        }
+
+        .index-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .index-card h3 {
+            color: var(--mediterranean-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .index-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .change-positive {
+            color: var(--olive-green);
+            font-weight: 600;
+        }
+
+        .change-negative {
+            color: var(--spanish-red);
+            font-weight: 600;
+        }
+
+        /* 热门股票 */
+        .stocks-table {
+            overflow-x: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: var(--mediterranean-blue);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: var(--cream);
+        }
+
+        /* 西班牙特色模块 */
+        .spanish-touch {
+            background: linear-gradient(135deg, var(--cream), var(--spanish-gold));
+            padding: 3rem 0;
+            margin: 4rem 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .spanish-touch h3 {
+            color: var(--spanish-red);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .spanish-touch p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--dark-gray);
+        }
+
+        /* 合作伙伴模块 */
+        .partnership {
+            background: linear-gradient(135deg, var(--mediterranean-blue), var(--spanish-red));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 10px;
+        }
+
+        .partnership h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--spanish-gold);
+        }
+
+        .partnership p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h4 {
+            color: var(--spanish-gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--spanish-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .partnership h3 {
+                font-size: 1.6rem;
+            }
+
+            .partnership p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>Bolsa de Madrid</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#indices">Índices</a></li>
+                    <li><a href="#acciones">Acciones</a></li>
+                    <li><a href="#mercado">Mercado</a></li>
+                    <li><a href="#analisis">Análisis</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Invierte en el Corazón de España</h2>
+            <p>Accede a las cotizaciones en tiempo real de la Bolsa de Madrid, IBEX 35 y las principales empresas españolas. Toma decisiones informadas con nuestros análisis expertos.</p>
+            <!-- 修改按钮链接为指定WhatsApp号码+预设咨询语 -->
+            <a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank" class="btn">
+                <i class="fab fa-whatsapp"></i> Contáctanos por WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 西班牙指数模块 -->
+            <section id="indices">
+                <h2 class="section-title">Índices Españoles Clave</h2>
+                <div class="indices-grid">
+                    <!-- IBEX 35 -->
+                    <div class="index-card">
+                        <h3>
+                            IBEX 35
+                            <i class="fas fa-chart-pie" style="color: var(--spanish-red);"></i>
+                        </h3>
+                        <div class="index-value">9,245.80</div>
+                        <div class="change-positive">+0.87% (+80.25)</div>
+                        <p>Última actualización: 17 Ene 2026</p>
+                    </div>
+
+                    <!-- IBEX Medium Cap -->
+                    <div class="index-card">
+                        <h3>
+                            IBEX Medium Cap
+                            <i class="fas fa-chart-pie" style="color: var(--mediterranean-blue);"></i>
+                        </h3>
+                        <div class="index-value">7,854.32</div>
+                        <div class="change-positive">+0.42% (+32.99)</div>
+                        <p>Última actualización: 17 Ene 2026</p>
+                    </div>
+
+                    <!-- IBEX Small Cap -->
+                    <div class="index-card">
+                        <h3>
+                            IBEX Small Cap
+                            <i class="fas fa-chart-pie" style="color: var(--terracotta);"></i>
+                        </h3>
+                        <div class="index-value">3,128.75</div>
+                        <div class="change-negative">-0.23% (-7.20)</div>
+                        <p>Última actualización: 17 Ene 2026</p>
+                    </div>
+
+                    <!-- Euro Stoxx 50 -->
+                    <div class="index-card">
+                        <h3>
+                            Euro Stoxx 50
+                            <i class="fas fa-chart-pie" style="color: var(--olive-green);"></i>
+                        </h3>
+                        <div class="index-value">4,689.12</div>
+                        <div class="change-positive">+0.58% (+27.20)</div>
+                        <p>Última actualización: 17 Ene 2026</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 西班牙特色模块 -->
+            <section class="spanish-touch">
+                <div class="container">
+                    <h3>El Mercado Bursátil Español: Tradición y Innovación</h3>
+                    <p>La Bolsa de Madrid, fundada en 1831, es uno de los mercados financieros más antiguos y prestigiosos de Europa. Con raíces profundas en la cultura española, combina la tradición con la innovación digital, ofreciendo acceso a empresas líderes en sectores como el bancario, energético, turístico y tecnológico que definen la economía española.</p>
+                </div>
+            </section>
+
+            <!-- 热门股票列表 -->
+            <section id="acciones">
+                <h2 class="section-title">Acciones Españolas Más Cotizadas</h2>
+                <div class="stocks-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Empresa</th>
+                                <th>Símbolo</th>
+                                <th>Precio (€)</th>
+                                <th>Cambio (%)</th>
+                                <th>Volumen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BBVA</td>
+                                <td>BBVA</td>
+                                <td>7.85</td>
+                                <td class="change-positive">+1.24%</td>
+                                <td>12,458,900</td>
+                            </tr>
+                            <tr>
+                                <td>Telefónica</td>
+                                <td>TEF</td>
+                                <td>3.92</td>
+                                <td class="change-positive">+0.77%</td>
+                                <td>28,765,400</td>
+                            </tr>
+                            <tr>
+                                <td>Repsol</td>
+                                <td>REP</td>
+                                <td>18.45</td>
+                                <td class="change-negative">-0.38%</td>
+                                <td>5,678,200</td>
+                            </tr>
+                            <tr>
+                                <td>Inditex</td>
+                                <td>ITX</td>
+                                <td>32.89</td>
+                                <td class="change-positive">+1.89%</td>
+                                <td>4,321,700</td>
+                            </tr>
+                            <tr>
+                                <td>Santander</td>
+                                <td>SAN</td>
+                                <td>3.56</td>
+                                <td class="change-positive">+0.56%</td>
+                                <td>19,876,500</td>
+                            </tr>
+                            <tr>
+                                <td>Iberdrola</td>
+                                <td>IBE</td>
+                                <td>10.23</td>
+                                <td class="change-negative">-0.92%</td>
+                                <td>8,765,400</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 合作伙伴招募模块 -->
+            <section class="partnership">
+                <div class="container">
+                    <h3>¿Quieres ser nuestro socio comercial?</h3>
+                    <p>Si estás interesado en colaborar con nosotros y formar parte de nuestra red de socios en el mercado bursátil español, no dudes en contactarnos. Estamos abiertos a nuevas oportunidades de negocio y asociaciones mutuamente beneficiosas.</p>
+                    <!-- 修改按钮链接为指定WhatsApp号码+预设咨询语 -->
+                    <a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank" class="btn">
+                        <i class="fab fa-whatsapp"></i> Contáctanos por WhatsApp
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Bolsa de Madrid</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="#">Historia</a></li>
+                        <li><a href="#">Responsabilidad Social</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Datos de Mercado</a></li>
+                        <li><a href="#">Análisis y Noticias</a></li>
+                        <li><a href="#">Educación Financiera</a></li>
+                        <li><a href="#">Herramientas de Trading</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Aviso Legal</a></li>
+                        <li><a href="#">Riesgos de Inversión</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Síguenos</h4>
+                    <ul class="social-links">
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <!-- 修改页脚WhatsApp链接为指定号码+预设咨询语 -->
+                        <li><a href="https://wa.me/85257614955?text=Quiero%20obtener%20acciones%20de%20alto%20potencial" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Bolsa de Madrid - Todos los derechos reservados | Hecho con <i class="fas fa-heart" style="color: var(--spanish-red);"></i> en España</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 简单的交互脚本 -->
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 模拟实时数据更新（每5秒）
+        setInterval(() => {
+            const indexValues = document.querySelectorAll('.index-value');
+            const changeValues = document.querySelectorAll('.change-positive, .change-negative');
+            
+            indexValues.forEach(el => {
+                const current = parseFloat(el.textContent.replace(',', '.'));
+                const change = (Math.random() - 0.48) * 20; // 随机波动
+                const newValue = (current + change).toFixed(2);
+                el.textContent = newValue.replace('.', ',');
+            });
+
+            changeValues.forEach(el => {
+                const changePercent = (Math.random() - 0.48) * 0.5; // 随机百分比变化
+                const changePoints = (Math.random() - 0.48) * 50;
+                
+                if (changePercent >= 0) {
+                    el.className = 'change-positive';
+                    el.textContent = `+${changePercent.toFixed(2)}% (+${changePoints.toFixed(2)})`;
+                } else {
+                    el.className = 'change-negative';
+                    el.textContent = `${changePercent.toFixed(2)}% (${changePoints.toFixed(2)})`;
+                }
+            });
+        }, 5000);
+    </script>
+</body>
+</html>
